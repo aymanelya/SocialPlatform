@@ -1,0 +1,79 @@
+<form #registerForm="ngForm" (ngSubmit)="register()">
+  <h1 class="h3 mb-3 font-weight-normal text-center">Please sign in</h1>
+  <div class="form-group mb-2">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Username"
+      name="UserName"
+      [(ngModel)]="model.UserName"
+      required
+      autofocus
+    />
+  </div>
+  <div class="form-group mb-2">
+    <input
+      type="password"
+      class="form-control"
+      placeholder="Password"
+      name="password"
+      [(ngModel)]="model.password"
+      required
+    />
+  </div>
+  <div class="form-group mb-2">
+    <input
+      type="email"
+      class="form-control"
+      placeholder="Email"
+      name="Email"
+      [(ngModel)]="model.Email"
+      required
+      autofocus
+    />
+  </div>
+  <div class="form-group mb-2">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Last Name"
+      name="LName"
+      [(ngModel)]="model.LName"
+      required
+      autofocus
+    />
+  </div>
+  <div class="form-group mb-2">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="First Name"
+      name="FName"
+      [(ngModel)]="model.FName"
+      required
+      autofocus
+    />
+  </div>
+  <div class="form-group mb-3">
+    <label for="Status">What is your status ?</label>
+    <select
+      class="form-control"
+      id="Status"
+      name="Status"
+      [(ngModel)]="model.Status"
+    >
+      <option *ngFor="let stat of Status">
+        {{ stat }}
+      </option>
+    </select>
+  </div>
+
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" type="submit">
+      Register
+    </button>
+    <button class="btn btn-info" (click)="cancel()" type="button">
+      Cancel
+    </button>
+  </div>
+</form>

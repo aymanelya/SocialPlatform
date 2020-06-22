@@ -1,0 +1,29 @@
+<p>LOGIN!</p>
+
+<hr />
+<form #myForm="ngForm" (ngSubmit)="onSubmit()">
+  <div class="form-group">
+    <label for="username">Username</label>
+    <input
+      name="username"
+      [(ngModel)]="model.username"
+      required
+      #username="ngModel"
+      placeholder="Username"
+    />
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input
+      name="password"
+      type="password"
+      [(ngModel)]="model.password"
+      required
+      #password="ngModel"
+      placeholder="Password"
+    />
+  </div>
+  <br />
+  <button [disabled]="!myForm.valid">Submit</button>
+</form>
+<hr />
