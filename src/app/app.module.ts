@@ -13,6 +13,7 @@ import { NavComponent } from './nav/nav.component';
 import { NotfoundComponent } from './notfound/notfound.component';
 import { CommunicationService } from './service/communication.service';
 import { HomeComponent } from './home/home.component';
+import { ErrorInterceptorProvider } from './service/error.interceptor';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import { HomeComponent } from './home/home.component';
     AppRoutingModule,
     HttpClientModule,
   ],
-  providers: [CommunicationService],
+  providers: [CommunicationService, ErrorInterceptorProvider],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
