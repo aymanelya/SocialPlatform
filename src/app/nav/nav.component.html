@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="#">SocialPlatform</a>
+    <a class="navbar-brand" [routerLink]="['/home']">SocialPlatform</a>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Users</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/users']">Users</a>
       </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Classes</a>
+      <li class="nav-item" routerLinkActive="active">
+        <a class="nav-link" [routerLink]="['/classes']">Classes</a>
       </li>
     </ul>
 

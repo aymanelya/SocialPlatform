@@ -1,0 +1,167 @@
+<h2 class="mt-5 ml-5">
+  <span class="badge badge-dark">User Managment</span>
+</h2>
+<div class="mt-5"></div>
+<table class="table table-striped table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">First Name</th>
+      <th scope="col">Last Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Status</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let user of users">
+      <th scope="row">{{ user.id }}</th>
+      <td>{{ user.fName }}</td>
+      <td>{{ user.lName }}</td>
+      <td>{{ user.email }}</td>
+      <td>{{ user.status }}</td>
+      <td>
+        <button
+          type="button"
+          class="btn btn-outline-info mr-2"
+          (click)="open(content, user.id)"
+        >
+          Edit
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-danger"
+          (click)="open(modaldel, user.id)"
+        >
+          Delete
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<!-- Edit Modal -->
+<ng-template #content let-modal>
+  <div *ngIf="user">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Edit User
+        <span class="badge badge-pill badge-warning"
+          >{{ user.fName }} {{ user.lName }}</span
+        >
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <form #editForm="ngForm">
+        <div class="form-group">
+          <label for="id">ID</label>
+          <div class="input-group">
+            <input
+              id="id"
+              type="text"
+              class="form-control"
+              name="id"
+              [(ngModel)]="user.id"
+              disabled
+            />
+          </div>
+          <label for="fName">First Name</label>
+          <div class="input-group">
+            <input
+              id="fName"
+              type="text"
+              class="form-control"
+              name="fName"
+              [(ngModel)]="user.fName"
+            />
+          </div>
+          <label for="lName">Last Name</label>
+          <div class="input-group">
+            <input
+              id="lName"
+              type="text"
+              class="form-control"
+              name="lName"
+              [(ngModel)]="user.lName"
+            />
+          </div>
+          <label for="email">Email</label>
+          <div class="input-group">
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              name="email"
+              [(ngModel)]="user.email"
+            />
+          </div>
+          <label for="Status">Status</label>
+          <div class="input-group">
+            <select
+              class="form-control"
+              id="Status"
+              name="Status"
+              [(ngModel)]="user.status"
+            >
+              <option *ngFor="let stat of Status">
+                {{ stat }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close()">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-success" (click)="edit()">
+        Edit
+      </button>
+    </div>
+  </div>
+</ng-template>
+<hr />
+
+<!-- confirm delete modal-->
+
+<ng-template #modaldel let-modal>
+  <div *ngIf="user">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Delete User
+        <span class="badge badge-pill badge-warning"
+          >{{ user.fName }} {{ user.lName }}</span
+        >
+      </h4>
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <h4>Are you sure you want to delete this user?</h4>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-secondary" (click)="modal.close()">
+        Cancel
+      </button>
+      <button type="submit" class="btn btn-danger" (click)="delete()">
+        Delete
+      </button>
+    </div>
+  </div>
+</ng-template>
+<hr />
