@@ -15,7 +15,12 @@ import { HomeComponent } from './home/home.component';
 import { ErrorInterceptorProvider } from './service/error.interceptor';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersListComponent } from './users-list/users-list.component';
-import { ClassesListComponent } from './classes-list/classes-list.component';
+import { ClassesListComponent } from './classes-cards/classes-cards.component';
+import { AddClassComponent } from './add-class/add-class.component';
+import { ClassWallComponent } from './class-wall/class-wall.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
+import { FileUploadModule } from 'ng2-file-upload';
+import { PublicationListComponent } from './publication-list/publication-list.component';
 
 export function TokenGetter() {
   return localStorage.getItem('token');
@@ -30,6 +35,10 @@ export function TokenGetter() {
     NotfoundComponent,
     UsersListComponent,
     ClassesListComponent,
+    AddClassComponent,
+    ClassWallComponent,
+    FileUploadComponent,
+    PublicationListComponent,
   ],
   imports: [
     CommonModule,
@@ -38,6 +47,7 @@ export function TokenGetter() {
     AppRoutingModule,
     HttpClientModule,
     NgbModule,
+    FileUploadModule,
     JwtModule.forRoot({
       config: {
         tokenGetter: TokenGetter,

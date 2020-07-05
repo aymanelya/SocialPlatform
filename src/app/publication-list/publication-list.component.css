@@ -1,0 +1,13 @@
+.roundedleft {
+  border-radius: 1em 0 0 1em !important;
+}
+.roundedright {
+  border-radius: 0 1em 1em 0 !important;
+}
+
+.rounded {
+  border-radius: 1em 1em 1em 1em !important;
+}
+.dropdown-toggle::after {
+  display: none;
+}

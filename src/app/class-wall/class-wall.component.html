@@ -1,0 +1,181 @@
+<div class="container" style="height: 90vh;">
+  <div class="right">
+    <div class="chat-wrapper">
+      <div class="chat-header">
+        <a (click)="back()" style="cursor: pointer;">
+          <i class="fa fa-chevron-left fa-2x ml-3 mr-5 mt-1"></i
+        ></a>
+        Class:{{ classData.name }}
+
+        <a
+          (click)="open(modalusers)"
+          class="clickable ml-2"
+          *ngIf="authService.decodedToken.role === 'Prof'"
+          ><i class="fa fa-users fa-lg"></i
+        ></a>
+        <a (click)="open(modalconfirm)" class="clickable ml-2"
+          ><i class="fa fa-times fa-lg"></i
+        ></a>
+      </div>
+      <div class="chat-body" id="style-1">
+        <app-publication-list
+          #publist
+          [classid]="classData.classId"
+        ></app-publication-list>
+      </div>
+
+      <div class="chat-footer mt-2">
+        <form #pubForm="ngForm" (submit)="addpub()">
+          <div class="form-group shadow-textarea">
+            <div class="input-group">
+              <div
+                style="display: flex; align-items: center;"
+                class="bg-secondary roundedleft"
+              >
+                <a (click)="toggleattachment()" style="cursor: pointer;">
+                  <i class="fa fa-plus-circle fa-2x ml-3"></i>
+                  <div class="badge badge-pill badge-warning" *ngIf="files">
+                    {{ files.length }}
+                  </div></a
+                >
+              </div>
+
+              <textarea
+                class="form-control z-depth-1 text-light overflow-hidden"
+                placeholder="What do you have in mind ?"
+                rows="3"
+                name="Content"
+                (keyup.enter)="addpub()"
+                [(ngModel)]="model.Content"
+              ></textarea>
+              <div
+                style="display: flex; align-items: center;"
+                class="bg-secondary roundedright"
+              >
+                <button
+                  type="submit"
+                  style="
+                    background-color: Transparent;
+                    background-repeat: no-repeat;
+                    border: none;
+                    cursor: pointer;
+                    overflow: hidden;
+                    outline: none;
+                  "
+                >
+                  <i
+                    class="fa fa-chevron-right fa-2x mr-3"
+                    style="color: #ebebeb;"
+                  >
+                  </i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </form>
+        <app-file-upload
+          *ngIf="attachment"
+          (uploadEvent)="receiveFiles($event)"
+        ></app-file-upload>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Users Modal -->
+<ng-template #modalusers let-modal>
+  <div *ngIf="authService.decodedToken.role === 'Prof'">
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">
+        Members of class
+        <span class="badge badge-pill badge-warning">
+          {{ classData.name }}
+        </span>
+        <br />
+        <h6 class="mt-3">Invitation Code: {{ classData.invitationCode }}</h6>
+      </h4>
+
+      <button
+        type="button"
+        class="close"
+        aria-label="Close"
+        (click)="modal.close()"
+      >
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    <div class="modal-body">
+      <ng-container *ngIf="classData.pending.length > 0">
+        <h5>Invitations: {{ classData.pending.length }}</h5>
+        <div
+          *ngFor="let member of classData.pending"
+          style="background-color: #2b3e50;"
+        >
+          {{ member.fName }} {{ member.lName }}
+          <div style="float: right;">
+            <a (click)="reply(member.id, 'true')" class="mr-2 clickable"
+              ><i class="fa fa-check"></i
+            ></a>
+            <a (click)="reply(member.id, 'false')" class="mr-2 clickable"
+              ><i class="fa fa-times"></i
+            ></a>
+          </div>
+        </div>
+      </ng-container>
+      <h5>Members: {{ classData.members.length }}</h5>
+      <div
+        *ngFor="let member of classData.members"
+        style="background-color: #2b3e50;"
+        class="mb-1"
+      >
+        {{ member.fName }} {{ member.lName }}
+        <div style="float: right;">
+          <a (click)="reply(member.id, 'false')" class="mr-2 clickable"
+            ><i class="fa fa-times"></i
+          ></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<!-- confirm Modal -->
+<ng-template #modalconfirm let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">
+      {{ authService.decodedToken.role === "Prof" ? "Delete" : "Leave" }}
+      class
+      <span class="badge badge-pill badge-warning">
+        {{ classData.name }}
+      </span>
+    </h4>
+
+    <button
+      type="button"
+      class="close"
+      aria-label="Close"
+      (click)="modal.close()"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <h5>
+      Are you sure you want to
+      {{ authService.decodedToken.role === "Prof" ? "delete" : "leave" }}
+      this class ?
+    </h5>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-secondary" (click)="modal.close()">
+      Cancel
+    </button>
+    <button
+      type="submit"
+      class="btn btn-danger"
+      (click)="deleteClass(classData.classId); modal.close()"
+    >
+      {{ authService.decodedToken.role === "Prof" ? "Delete" : "Leave" }}
+    </button>
+  </div>
+</ng-template>

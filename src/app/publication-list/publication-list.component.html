@@ -1,0 +1,259 @@
+<div *ngIf="pubs?.length == 0" style="margin-top: 200px;">
+  <h1 class="text-center">No publications yet, be the first to create one !</h1>
+  <i
+    class="fa fa-arrow-down fa-3x"
+    style="text-align: center; margin-left: 50%;"
+  ></i>
+</div>
+<div
+  class="container mt-4 mb-4"
+  *ngFor="let pub of pubs"
+  (mouseenter)="focusPub(pub.publicationId)"
+  (mouseleave)="focusPub(pub.publicationId)"
+>
+  <div class="row">
+    <div class="col-12">
+      <div class="card card-white post">
+        <div class="post-heading">
+          <div class="meta">
+            <div class="title h5 ml-3 mt-2">
+              <b style="color: chocolate;"
+                >{{ pub.owner.fName }} {{ pub.owner.lName }}</b
+              >
+              made a post.
+              <span class="text-muted time h6 ml-3">
+                {{ formatDate(pub.datePublication) }}
+              </span>
+              <span
+                ngbDropdown
+                role="group"
+                style="float: right !important;"
+                class="d-inline-block"
+                *ngIf="
+                  focuspub[pub.publicationId] &&
+                  (authService.decodedToken.unique_name ===
+                    pub.owner.userName ||
+                    authService.decodedToken.role === 'Prof')
+                "
+              >
+                <a
+                  class="btn btn-outline-secondary mr-5"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                  ><i class="fa fa-ellipsis-h fa-lg"></i
+                ></a>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                  <a
+                    ngbDropdownItem
+                    class="clickable"
+                    (click)="deletePub(pub.publicationId)"
+                  >
+                    <i class="fa fa-trash"></i> Delete
+                  </a>
+                  <a
+                    ngbDropdownItem
+                    class="clickable"
+                    (click)="
+                      editedpub = pub.content; editpub[pub.publicationId] = true
+                    "
+                  >
+                    <i class="fa fa-edit"></i> Edit
+                  </a>
+                </div>
+              </span>
+            </div>
+          </div>
+        </div>
+        <div class="post-description ml-4">
+          <p *ngIf="!editpub[pub.publicationId]">
+            {{ pub.content }}
+          </p>
+          <div *ngIf="editpub[pub.publicationId]" class="ml-3">
+            <input
+              style="
+                outline: none;
+                color: white;
+                width: 90%;
+                border: none;
+                background-color: #4e5d6c !important;
+              "
+              (keyup.enter)="editPub(pub.publicationId)"
+              [(ngModel)]="editedpub"
+            /><br />
+            <a
+              class="text-primary"
+              style="cursor: pointer;"
+              (click)="editpub[pub.publicationId] = false"
+            >
+              <small>cancel</small>
+            </a>
+            <a
+              class="text-primary"
+              style="cursor: pointer;"
+              (click)="editPub(pub.publicationId)"
+            >
+              <small class="ml-4">save</small>
+            </a>
+          </div>
+          <div *ngIf="pub.attachements.length > 0">
+            <hr />
+            <h6 class="mb-3">Attachments:</h6>
+            <div *ngFor="let at of pub.attachements" class="mb-2">
+              <i class="fa fa-file fa-2x mr-2"></i>
+
+              {{ formatAtt(at.path) }}
+              <a
+                *ngIf="!editpub[pub.publicationId]"
+                target="_blank"
+                [href]="'http://localhost:5000/' + at.path"
+                [download]="at.path"
+                style="color: #ebebeb;"
+              >
+                <i class="ml-5 fa fa-download"></i> Download
+              </a>
+              <a
+                *ngIf="editpub[pub.publicationId]"
+                style="color: #ebebeb;"
+                class="clickable"
+                (click)="deleteAtt(at)"
+              >
+                <i class="ml-5 fa fa-times"></i> Delete
+              </a>
+            </div>
+          </div>
+          <hr />
+          <a
+            (click)="pub.showComments = !pub.showComments"
+            *ngIf="pub.comments.length > 0"
+            style="cursor: pointer;"
+            ><h6 class="ml-4">
+              {{ pub.showComments ? "Hide Comments" : "Show comments" }}
+            </h6></a
+          >
+          <div *ngIf="pub.showComments">
+            <div
+              *ngFor="let com of pub.comments"
+              class="rounded mb-3"
+              style="
+                background-color: #43515e !important;
+                width: 95%;
+                height: 70px;
+              "
+              (mouseenter)="focusComment(com.commentId)"
+              (mouseleave)="focusComment(com.commentId)"
+            >
+              <b class="ml-3" style="color: chocolate;"
+                >{{ com.owner.fName }} {{ com.owner.lName }}
+              </b>
+              <span class="text-muted time h6 ml-3">{{
+                formatDate(com.dateComment)
+              }}</span>
+              <span
+                ngbDropdown
+                role="group"
+                style="float: right;"
+                class="d-inline-block"
+                *ngIf="
+                  focuscom[com.commentId] &&
+                  (authService.decodedToken.unique_name ===
+                    com.owner.userName ||
+                    authService.decodedToken.role === 'Prof')
+                "
+              >
+                <a
+                  class="btn btn-outline-secondary mr-3"
+                  id="dropdownBasic1"
+                  ngbDropdownToggle
+                  ><i class="fa fa-ellipsis-h fa-lg"></i
+                ></a>
+                <div class="dropdown-menu" ngbDropdownMenu>
+                  <a
+                    ngbDropdownItem
+                    class="clickable"
+                    (click)="deleteComment(com.commentId)"
+                  >
+                    <i class="fa fa-trash"></i> Delete
+                  </a>
+                  <a
+                    ngbDropdownItem
+                    class="clickable"
+                    (click)="
+                      comments[com.commentId] = com.content;
+                      editcom[com.commentId] = true;
+                      pubid = pub.publicationId
+                    "
+                  >
+                    <i class="fa fa-edit"></i> Edit
+                  </a>
+                </div>
+              </span>
+
+              <p *ngIf="!editcom[com.commentId]" class="ml-3">
+                {{ com.content }}
+              </p>
+              <br />
+              <div *ngIf="editcom[com.commentId]" class="ml-3">
+                <input
+                  style="
+                    outline: none;
+                    color: white;
+                    width: 90%;
+                    border: none;
+                    background-color: #43515e !important;
+                  "
+                  (keyup.enter)="editComment(com.commentId)"
+                  [(ngModel)]="comments[com.commentId]"
+                /><br />
+                <a
+                  class="text-primary"
+                  style="cursor: pointer;"
+                  (click)="editcom[com.commentId] = false"
+                >
+                  <small>cancel</small>
+                </a>
+                <a
+                  class="text-primary"
+                  style="cursor: pointer;"
+                  (click)="editComment(com.commentId)"
+                >
+                  <small class="ml-4">save</small>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="rounded mb-3"
+            style="
+              background-color: #43515e !important;
+              width: 95%;
+              display: flex;
+              align-items: center;
+            "
+          >
+            <input
+              type="text"
+              class="text-light roundedleft"
+              (keyup.enter)="createComment(pub.publicationId)"
+              [(ngModel)]="comments[pub.publicationId]"
+              style="
+                outline: none;
+                width: 95%;
+                height: 50px;
+                padding: 10px;
+                border: none;
+                background-color: #43515e !important;
+              "
+              placeholder="Write a comment..."
+            />
+            <a
+              style="background-color: #43515e; cursor: pointer;"
+              (click)="createComment(pub.publicationId)"
+            >
+              <i class="fa fa-chevron-right fa-2x"></i
+            ></a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

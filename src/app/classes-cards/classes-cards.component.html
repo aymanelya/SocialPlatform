@@ -1,0 +1,107 @@
+<div *ngIf="!addMode && !convMode">
+  <br />
+
+  <div
+    class="input-group pull-right mr-5"
+    [ngStyle]="{ width: prof ? '25rem' : '12rem' }"
+  >
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Search class"
+      aria-describedby="button-addon2"
+    />
+
+    <div class="input-group-append">
+      <a class="btn btn-secondary" href="#"><i class="fa fa-search"></i></a>
+    </div>
+
+    <div *ngIf="prof" class="input-group-append ml-2">
+      <a class="btn btn-secondary" (click)="add()"
+        ><i class="fa fa-plus"></i> Create new class</a
+      >
+    </div>
+  </div>
+  <br />
+
+  <div *ngIf="classes.length == 0" class="mt-5">
+    <h1 class="mt-3 text-center">You didn't join any class yet !</h1>
+  </div>
+  <hr class="mt-5" />
+
+  <!-- grid starts here -->
+  <div class="container">
+    <div class="row">
+      <div class="col-3 mb-2">
+        <div class="card" style="height: 180px;">
+          <div class="card-body">
+            <h5 class="card-title text-center mt-3">Join class with a code</h5>
+            <div class="input-group mb-3">
+              <input
+                type="text"
+                class="form-control"
+                placeholder="Enter code"
+                [(ngModel)]="joinCode"
+              />
+              <div class="input-group-append">
+                <button
+                  class="btn btn-primary"
+                  type="button"
+                  id="button-addon2"
+                  (click)="join()"
+                >
+                  Join
+                </button>
+              </div>
+            </div>
+            <h6 class="card-subtitle mb-2 text-muted text-center">
+              Got a code to join a class? Enter it above
+            </h6>
+          </div>
+        </div>
+      </div>
+      <ng-container *ngIf="classes.length > 0">
+        <div
+          class="col-3 mb-2"
+          *ngFor="let c of classes"
+          (click)="loadClass(c.classId)"
+        >
+          <div class="card clickable" style="height: 180px;">
+            <div class="card-body">
+              <h4 class="card-title text-center">
+                <span class="badge badge-pill badge-warning">{{ c.name }}</span>
+              </h4>
+              <h6 class="card-subtitle mt-4 mb-2 text-muted">
+                {{ c.grade }} {{ c.branch }}
+              </h6>
+              <p class="card-text">
+                Prof: {{ c.owner.fName }} {{ c.owner.lName }}<br />
+                Members: {{ c.members.length }}
+              </p>
+            </div>
+          </div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+  <!-- grid stops here -->
+</div>
+<div *ngIf="addMode" class="container">
+  <br />
+  <div class="row justify-content-center">
+    <div class="col-4">
+      <app-add-class
+        (cancelAddClass)="cancelAddMode($event)"
+        (isCreated)="isCreated($event)"
+      ></app-add-class>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="convMode">
+  <app-class-wall
+    (backhome)="backToHome()"
+    (reloadClass)="loadClass($event)"
+    [classData]="class"
+  ></app-class-wall>
+</div>

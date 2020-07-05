@@ -1,10 +1,12 @@
 import { User } from './user';
 
 export interface Class {
-  ClassId: number;
-  Name: string;
-  Branch: string;
-  Grade: string;
-  InvitationCode: string;
-  Owner: User;
+  classId?: number;
+  name: string;
+  branch: string;
+  grade: string;
+  invitationCode?: string;
+  owner?: User;
+  members?: Array<User>;
+  pending?: Array<User>;
 }

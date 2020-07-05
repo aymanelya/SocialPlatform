@@ -1,19 +1,25 @@
 <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-  <div class="container">
-    <a class="navbar-brand" [routerLink]="['/home']">SocialPlatform</a>
+  <div class="container-fluid">
+    <a class="navbar-brand" [routerLink]="['']"><h3>SocialPlatform</h3></a>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/users']">Users</a>
+        <a class="nav-link" [routerLink]="['/users']"><h6>Users</h6></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
-        <a class="nav-link" [routerLink]="['/classes']">Classes</a>
+        <a class="nav-link" [routerLink]="['/classes']"><h6>Classes</h6></a>
       </li>
     </ul>
 
-    <div *ngIf="loggedIn()" class="dropdown" ngbDropdown>
+    <div
+      *ngIf="loggedIn()"
+      class="dropdown"
+      style="width: fit-content;"
+      ngbDropdown
+    >
       <a
         class="dropdown-toggle text-light"
+        style="font-size: 18px;"
         id="dropdownBasic1"
         ngbDropdownToggle
       >

@@ -1,0 +1,43 @@
+<form #registerForm="ngForm" (ngSubmit)="create()">
+  <h1 class="h3 mb-3 font-weight-normal text-center">Create new class</h1>
+  <div class="form-group mb-2">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Name"
+      name="Name"
+      [(ngModel)]="model.Name"
+      required
+      autofocus
+    />
+  </div>
+  <div class="form-group mb-2">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Branch"
+      name="Branch"
+      [(ngModel)]="model.Branch"
+      required
+    />
+  </div>
+  <div class="form-group mb-2">
+    <input
+      type="text"
+      class="form-control"
+      placeholder="Grade"
+      name="Grade"
+      [(ngModel)]="model.Grade"
+      required
+      autofocus
+    />
+  </div>
+  <div class="form-group text-center">
+    <button class="btn btn-success mr-2" type="submit">
+      Create
+    </button>
+    <button class="btn btn-info" (click)="cancel()" type="button">
+      Cancel
+    </button>
+  </div>
+</form>
