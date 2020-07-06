@@ -3,7 +3,11 @@
     <a class="navbar-brand" [routerLink]="['']"><h3>SocialPlatform</h3></a>
 
     <ul *ngIf="loggedIn()" class="navbar-nav mr-auto">
-      <li class="nav-item" routerLinkActive="active">
+      <li
+        *ngIf="authService.decodedToken.role === 'Prof'"
+        class="nav-item"
+        routerLinkActive="active"
+      >
         <a class="nav-link" [routerLink]="['/users']"><h6>Users</h6></a>
       </li>
       <li class="nav-item" routerLinkActive="active">
@@ -32,10 +36,6 @@
         ngbDropdownMenu
         aria-labelledby="dropdownBasic1"
       >
-        <a ngbDropdownItem class="dropdown-item" href="#"
-          ><i class="fa fa-user"></i> Edit Profile</a
-        >
-        <div class="dropdown-divider"></div>
         <a ngbDropdownItem class="dropdown-item" (click)="logout()"
           ><i class="fa fa-sign-out"></i> Logout</a
         >
