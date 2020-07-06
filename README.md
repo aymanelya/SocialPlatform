@@ -40,7 +40,7 @@ La partie serveur Dotnet-Core est [ICI](https://github.com/anascheriet/DotNetAPI
 
 ## Demarrage du serveur
 
-`dotnet run` pour demarrer le serveur de l'API
+`dotnet run` pour demarrer le serveur de l'API  
 `ng serve` pour demarrer un serveur de developpement . Accedez au lien `http://localhost:4200/`.
 
 ## Video demo
