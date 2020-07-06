@@ -1,27 +1,45 @@
+![logo](https://i.imgur.com/4zZtAVU.png)
 # SocialPlatform
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 9.1.8.
+Ce projet a été réalisé avec **Angular 9** et **Dotnet-Core 3.1**  
+La partie serveur Dotnet-Core est [ICI](https://github.com/anascheriet/DotNetAPI)
 
-## Development server
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Modules ajoutés
 
-## Code scaffolding
+`npm install bootstrap` - Module responsable de l'integration du bootstrap dans le projet  
+`npm install font-awesome` - Module responsable de l'affichage de quelques icones  
+`npm install alertifyjs` - Module responsable des pop-up alerts (notifications)  
+`npm install @auth0/angular-jwt` - Module responsable de decodage du JsonWebToken  
+`ng add @ng-bootstrap/ng-bootstrap` - Module pour remplacer le bootstrapjs parce qu'on veut pas utiliser le jquery  
+`npm install bootswatch` - Module responsable de changement de theme du bootstrap  
+`npm install ng2-file-upload --save` - Module responsable de la gestion du file upload 
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Fonctionnalités
++ Visiteur
+  + Créer un compte
+  + Se connecter
++ Etudiant
+  + Rejoindre des classes avec un code d'invitation
+  + Quitter des classes
+  + Gerer ses propres publications (**Ajouter**, **Modifier**, **Supprimer**, **Ajouter fichiers**, **Supprimer fichiers**)  
+  + Gerer ses propres commentaires (**Ajouter**, **Modifier**, **Supprimer**)  
++ Prof
+  + Gerer des classes (**Ajouter**, **Supprimer**, **Voir code d'invitation**, **Rejoindre avec un code d'invitation**)  
+  + Gerer des membres (**Accepter invitation**, **Refuser invitation**, **Retirer un membre**)  
+  + Gerer toutes les publications (**Ajouter**, **Modifier**, **Supprimer**, **Ajouter fichiers**, **Supprimer fichiers**)  
+  + Gerer tous les commentaires (**Ajouter**, **Modifier**, **Supprimer**)  
+  + Gerer les utilisateurs (**Modifier**, **Supprimer**)
+  
+## Fonctionnalités a ajouter
++ Ajouter nouveau rôle **Admin** pour la gestion des utilisateurs
++ Ajouter fonction recherche Utilisateurs et Classes  
 
-## Build
+## Demarrage du serveur
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+`dotnet run` pour demarrer le serveur de l'API
+`ng serve` pour demarrer un serveur de developpement . Accedez au lien `http://localhost:4200/`.
 
-## Running unit tests
+## Video demo
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+[![Video Demo](https://i.imgur.com/C6u1o1b.png)](https://youtu.be/bQZx28VRYmU)
