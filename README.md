@@ -5,6 +5,8 @@
 Ce projet a été réalisé avec **Angular 9** et **Dotnet-Core 3.1**  
 La partie serveur Dotnet-Core est [ICI](https://github.com/anascheriet/DotNetAPI)
 
+Realisé par [Anas Cheriet](https://github.com/anascheriet),[Karim Tijani](https://github.com/AbdelkarimTijani),[Ayman Elyahmidi](https://github.com/aymanelya)
+
 ## Modules ajoutés
 
 `npm install bootstrap` - Module responsable de l'integration du bootstrap dans le projet  
